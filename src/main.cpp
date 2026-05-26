@@ -1,15 +1,24 @@
-#include <iostream>
-
 #include "../include/memory/Proceso.h"
 #include "../include/memory/MemoriaRAM.h"
 
 int main() {
     MemoriaRAM memoria = MemoriaRAM(1024);
 
+    auto proceso1 = std::make_unique<Proceso>(1, "Google Chrome", 300);
+    auto proceso2 = std::make_unique<Proceso>(2, "Spotify", 150);
+
+    memoria.asignarProceso(std::move(proceso1));
+    memoria.asignarProceso(std::move(proceso2));
+
     memoria.imprimirMapaMemoria();
 
-    Proceso proceso1 = Proceso(1, "Musica", 100);
-    Proceso proceso2 = Proceso(2, "Uma Musume", 500);
+    memoria.liberarProceso(1);
+
+    memoria.imprimirMapaMemoria();
+
+    memoria.liberarProceso(2);
+
+    memoria.imprimirMapaMemoria();
 
     return 0;
 }

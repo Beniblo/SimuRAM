@@ -21,6 +21,12 @@ public:
     // Destructor
     ~MemoriaRAM();
 
-    // Metodo
+    // Metodos
     void imprimirMapaMemoria() const;
+
+    bool asignarProceso(std::unique_ptr<Proceso> nuevoProceso);
+
+    bool liberarProceso(int idProceso);
+
+    void compactarMemoria();
 };
