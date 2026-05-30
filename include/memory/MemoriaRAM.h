@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <mutex>
 #include <unordered_map>
 #include <memory>
 #include "../../include/memory/BloqueMemoria.h"
@@ -13,6 +14,7 @@ private:
     int capacidadTotal;
     std::vector<BloqueMemoria> bloques;
     std::unordered_map<int, std::unique_ptr<Proceso>> tablaProcesos;
+    mutable std::mutex mtx_memoria;
 
 public:
     // Constructor

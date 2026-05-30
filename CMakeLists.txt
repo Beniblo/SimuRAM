@@ -8,4 +8,6 @@ add_executable(SimuRAM
         src/memory/Proceso.cpp
         src/memory/BloqueMemoria.cpp
         src/memory/MemoriaRAM.cpp
+        include/threading/SimuladorCarga.h
+        src/threading/SimuladorCarga.cpp
 )

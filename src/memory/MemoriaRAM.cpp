@@ -16,6 +16,8 @@ MemoriaRAM::~MemoriaRAM(){}
 // Metodos
 // 1. Imprimir pantalla
 void MemoriaRAM::imprimirMapaMemoria() const {
+    std::lock_guard<std::mutex> lock(mtx_memoria); // Candado para forzar la espera hasta liberacion
+
     for (const BloqueMemoria& bloqueMemoria : bloques) {
         bloqueMemoria.mostrarInformacion();
     }
@@ -23,6 +25,7 @@ void MemoriaRAM::imprimirMapaMemoria() const {
 
 // 2. Asignar Procesos a la RAM
 bool MemoriaRAM::asignarProceso(std::unique_ptr<Proceso> nuevoProceso) {
+    std::lock_guard<std::mutex> lock(mtx_memoria);
     // Defino el tamaño para comparar lo que necesito
     int tamanioRequerido = nuevoProceso->tamanioProceso;
 
@@ -93,6 +96,7 @@ bool MemoriaRAM::asignarProceso(std::unique_ptr<Proceso> nuevoProceso) {
 
 // 3. Liberar Bloques
 bool MemoriaRAM::liberarProceso(int idProceso) {
+    std::lock_guard<std::mutex> lock(mtx_memoria);
     // Condicional para buscar en el mapa tablaProcesos el id solicitado
     if (tablaProcesos.find(idProceso) != tablaProcesos.end()){
         // Si encuentra el id hace un recorrido para llegar al proceso indicado

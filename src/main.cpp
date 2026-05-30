@@ -1,23 +1,19 @@
 #include "../include/memory/Proceso.h"
 #include "../include/memory/MemoriaRAM.h"
+#include "../include/threading/SimuladorCarga.h"
 
 int main() {
     MemoriaRAM memoria = MemoriaRAM(1024);
 
-    auto proceso1 = std::make_unique<Proceso>(1, "Google Chrome", 300);
-    auto proceso2 = std::make_unique<Proceso>(2, "Spotify", 150);
+    SimuladorCarga simulador = SimuladorCarga(memoria);
 
-    memoria.asignarProceso(std::move(proceso1));
-    memoria.asignarProceso(std::move(proceso2));
-
+    // Impresion de memoria por default
     memoria.imprimirMapaMemoria();
 
-    memoria.liberarProceso(1);
+    // Inciar la simulacion de multihilo
+    simulador.iniciarSimuladorCargaConcurrente();
 
-    memoria.imprimirMapaMemoria();
-
-    memoria.liberarProceso(2);
-
+    //  Impresion de memoria
     memoria.imprimirMapaMemoria();
 
     return 0;
