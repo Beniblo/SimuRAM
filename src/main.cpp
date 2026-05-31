@@ -1,20 +1,15 @@
-#include "../include/memory/Proceso.h"
 #include "../include/memory/MemoriaRAM.h"
 #include "../include/threading/SimuladorCarga.h"
+#include "../include/ui/Menu.h"
 
 int main() {
     MemoriaRAM memoria = MemoriaRAM(1024);
 
     SimuladorCarga simulador = SimuladorCarga(memoria);
 
-    // Impresion de memoria por default
-    memoria.imprimirMapaMemoria();
+    Menu menu = Menu(memoria, simulador);
 
-    // Inciar la simulacion de multihilo
-    simulador.iniciarSimuladorCargaConcurrente();
-
-    //  Impresion de memoria
-    memoria.imprimirMapaMemoria();
+    menu.mostrarMenu();
 
     return 0;
 }

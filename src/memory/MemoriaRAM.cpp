@@ -1,4 +1,5 @@
 #include "../../include/memory/MemoriaRAM.h"
+#include "../../include/persistence/Logger.h"
 
 #include <iostream>
 
@@ -79,7 +80,8 @@ bool MemoriaRAM::asignarProceso(std::unique_ptr<Proceso> nuevoProceso) {
                 );
             }
 
-            // Se crea el nuevo proceso y se mete al mapa de tablaProceso
+            // Se crea el nuevo proceso y se mete al mapa de tablaProceso.
+            Logger::registrarOperacion("Proceso " + nuevoProceso->nombreProceso + " asignado con exito\n");
             tablaProcesos[nuevoProceso->idProceso] =
                 std::move(nuevoProceso);
 
@@ -109,6 +111,7 @@ bool MemoriaRAM::liberarProceso(int idProceso) {
                 bloques[i].idProcesoAsignado = -1;
                 tablaProcesos.erase(idProceso);
                 std::cout << "Bloque liberado con exito\n";
+                Logger::registrarOperacion("Proceso liberado con exito\n");
                 break;
             }
         }
@@ -136,7 +139,7 @@ void MemoriaRAM::compactarMemoria() {
             bloques.erase(bloques.begin() + i + 1);
             // Importante retroceder el indice para evitar convinaciones posibles
             i--;
-            std::cout << "Memoria compactada con exito\n";
+            Logger::registrarOperacion("Memoria compactado exitosamente\n");
         }
     }
 }

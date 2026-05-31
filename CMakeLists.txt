@@ -10,4 +10,8 @@ add_executable(SimuRAM
         src/memory/MemoriaRAM.cpp
         include/threading/SimuladorCarga.h
         src/threading/SimuladorCarga.cpp
+        include/persistence/Logger.h
+        src/persistence/Logger.cpp
+        include/ui/Menu.h
+        src/ui/Menu.cpp
 )
